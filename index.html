@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCH - Powering Swift Deliveries Worldwide</title>
+    <meta name="description" content="Track your packages with precision and confidence. PCH delivers reliable tracking solutions for all your logistics needs worldwide.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* PCH Colors */
+        :root {
+            --pch-yellow: #F1C40F;
+            --pch-navy: #2E4BC6;
+            --pch-dark: #6B7280;
+            --white: #ffffff;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--pch-yellow);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--pch-navy);
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--pch-dark);
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--pch-yellow);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #FEF3C7 0%, #ffffff 100%);
+            padding: 5rem 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--pch-navy);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .text-yellow {
+            color: var(--pch-yellow);
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--pch-dark);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Tracking Form */
+        .tracking-form {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .tracking-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--pch-navy);
+            margin-bottom: 1rem;
+        }
+
+        .tracking-input-group {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .tracking-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .tracking-input:focus {
+            outline: none;
+            border-color: var(--pch-yellow);
+        }
+
+        .tracking-btn {
+            background: var(--pch-yellow);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tracking-btn:hover {
+            background: #E1B000;
+            transform: translateY(-2px);
+        }
+
+        /* Error Message */
+        .error-message {
+            background: #FEE2E2;
+            border: 1px solid #FECACA;
+            color: #DC2626;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        /* Tracking Results */
+        .tracking-results {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 1rem;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .history-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--pch-yellow);
+            border-radius: 50%;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--pch-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--pch-dark);
+            opacity: 0.7;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 5rem 0;
+            background: var(--gray-50);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--pch-navy);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-description {
+            font-size: 1.25rem;
+            color: var(--pch-dark);
+            opacity: 0.7;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--pch-navy);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--pch-dark);
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .whatsapp-card {
+            background: var(--gray-50);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .whatsapp-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .whatsapp-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--pch-navy);
+            margin-bottom: 1rem;
+        }
+
+        .whatsapp-description {
+            color: var(--pch-dark);
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--pch-navy);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-description {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            margin-top: 1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .tracking-input-group {
+                flex-direction: column;
+            }
+            
+            .stats-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <div class="logo-icon">P</div>
+                    <span class="logo-text">PCH</span>
+                </div>
+                <nav class="nav">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="section hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            Powering Swift
+                            <span class="text-yellow">Deliveries</span><br>
+                            Worldwide
+                        </h1>
+                        <p class="hero-description">
+                            Track your packages with precision and confidence. PCH delivers reliable tracking solutions for all your logistics needs.
+                        </p>
+                        
+                        <!-- Tracking Form -->
+                        <div class="tracking-form">
+                            <h3 class="tracking-title">Track Your Package</h3>
+                            <form id="trackingForm" class="tracking-input-group">
+                                <input 
+                                    type="text" 
+                                    id="trackingNumber" 
+                                    placeholder="Enter tracking number (e.g., PCH123456789)"
+                                    class="tracking-input"
+                                    required
+                                >
+                                <button type="submit" class="tracking-btn">
+                                    <span class="btn-icon">🔍</span>
+                                    <span class="btn-text">Track</span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Error Display -->
+                        <div id="errorMessage" class="error-message hidden"></div>
+
+                        <!-- Tracking Results -->
+                        <div id="trackingResults" class="tracking-results hidden"></div>
+                    </div>
+                    
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
+                             alt="Modern warehouse with packages" 
+                             class="hero-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">50M+</div>
+                        <div class="stat-label">Packages Tracked</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Countries Covered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">99.9%</div>
+                        <div class="stat-label">Tracking Accuracy</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Why Choose PCH?</h2>
+                    <p class="section-description">Experience the difference with our advanced tracking platform</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3 class="feature-title">Real-Time Tracking</h3>
+                        <p class="feature-description">Get instant updates on your package location and delivery status with our advanced tracking system.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3 class="feature-title">Secure & Reliable</h3>
+                        <p class="feature-description">Your tracking data is protected with enterprise-grade security and 99.9% uptime guarantee.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <h3 class="feature-title">Global Coverage</h3>
+                        <p class="feature-description">Track packages worldwide with coverage in over 200 countries and territories.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section features-section hidden">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">About PCH</h1>
+                    <p class="section-description">Your trusted partner in package tracking solutions, providing real-time visibility into your shipments worldwide.</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <h3 class="feature-title">Global Reach</h3>
+                        <p class="feature-description">Track packages across 200+ countries with our comprehensive global tracking network.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <h3 class="feature-title">Real-Time Updates</h3>
+                        <p class="feature-description">Get instant notifications and real-time tracking updates for complete transparency.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3 class="feature-title">Secure & Reliable</h3>
+                        <p class="feature-description">Advanced security measures ensure your tracking data remains private and protected.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact-section hidden">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Get In Touch</h1>
+                    <p class="section-description">Need help with tracking? Our support team is here to assist you.</p>
+                </div>
+                
+                <div class="contact-content">
+                    <div class="whatsapp-support">
+                        <div class="whatsapp-card">
+                            <div class="whatsapp-icon">💬</div>
+                            <h3 class="whatsapp-title">WhatsApp Support</h3>
+                            <p class="whatsapp-description">Get instant help through WhatsApp for all your tracking needs.</p>
+                            <a href="https://wa.me/1234567890" class="whatsapp-btn">
+                                <span class="btn-icon">📱</span>
+                                Chat with Support
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon">P</div>
+                        <span class="logo-text">PCH</span>
+                    </div>
+                    <p class="footer-description">Powering swift deliveries worldwide with reliable package tracking solutions.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 1rem;">Quick Links</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#home" style="color: rgba(255,255,255,0.7); text-decoration: none;">Home</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#about" style="color: rgba(255,255,255,0.7); text-decoration: none;">About Us</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#contact" style="color: rgba(255,255,255,0.7); text-decoration: none;">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-support">
+                    <h4 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 1rem;">Support</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#contact" style="color: rgba(255,255,255,0.7); text-decoration: none;">Contact Us</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="https://wa.me/1234567890" style="color: rgba(255,255,255,0.7); text-decoration: none;">WhatsApp Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p style="color: rgba(255,255,255,0.6); font-size: 0.875rem;">© 2024 PCH. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample tracking data
+        const samplePackages = {
+            'PCH123456789': {
+                trackingNumber: 'PCH123456789',
+                status: 'Out for Delivery',
+                currentLocation: 'Los Angeles, CA',
+                estimatedDelivery: '2024-12-24',
+                recipient: 'John Smith',
+                origin: 'New York, NY',
+                destination: 'Los Angeles, CA',
+                updates: [
+                    { date: '2024-12-20', time: '10:30 AM', location: 'New York, NY', status: 'Package picked up' },
+                    { date: '2024-12-21', time: '02:15 PM', location: 'Chicago, IL', status: 'In transit' },
+                    { date: '2024-12-22', time: '08:45 AM', location: 'Denver, CO', status: 'Package sorted' },
+                    { date: '2024-12-23', time: '11:20 AM', location: 'Los Angeles, CA', status: 'Out for delivery' }
+                ]
+            },
+            'PCH987654321': {
+                trackingNumber: 'PCH987654321',
+                status: 'In Transit',
+                currentLocation: 'Chicago, IL',
+                estimatedDelivery: '2024-12-25',
+                recipient: 'Jane Doe',
+                origin: 'Miami, FL',
+                destination: 'Seattle, WA',
+                updates: [
+                    { date: '2024-12-19', time: '09:00 AM', location: 'Miami, FL', status: 'Package picked up' },
+                    { date: '2024-12-21', time: '01:30 PM', location: 'Atlanta, GA', status: 'In transit' },
+                    { date: '2024-12-22', time: '04:15 PM', location: 'Chicago, IL', status: 'Package sorted' }
+                ]
+            },
+            'PCH555666777': {
+                trackingNumber: 'PCH555666777',
+                status: 'Delivered',
+                currentLocation: 'Boston, MA',
+                estimatedDelivery: '2024-12-23',
+                recipient: 'Mike Johnson',
+                origin: 'Denver, CO',
+                destination: 'Boston, MA',
+                updates: [
+                    { date: '2024-12-18', time: '08:00 AM', location: 'Denver, CO', status: 'Package picked up' },
+                    { date: '2024-12-20', time: '12:00 PM', location: 'Kansas City, MO', status: 'In transit' },
+                    { date: '2024-12-21', time: '03:45 PM', location: 'Columbus, OH', status: 'Package sorted' },
+                    { date: '2024-12-23', time: '10:30 AM', location: 'Boston, MA', status: 'Delivered' }
+                ]
+            }
+        };
+
+        // Navigation functionality
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    sections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.remove('hidden');
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+            
+            const footerLinks = document.querySelectorAll('a[href^="#"]');
+            footerLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    const targetNavLink = document.querySelector(`.nav-link[href="#${targetId}"]`);
+                    if (targetNavLink) {
+                        targetNavLink.classList.add('active');
+                    }
+                    
+                    sections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.remove('hidden');
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Tracking functionality
+        function initTracking() {
+            const trackingForm = document.getElementById('trackingForm');
+            const trackingNumber = document.getElementById('trackingNumber');
+            const errorMessage = document.getElementById('errorMessage');
+            const trackingResults = document.getElementById('trackingResults');
+            
+            trackingForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const number = trackingNumber.value.trim().toUpperCase();
+                
+                errorMessage.classList.add('hidden');
+                trackingResults.classList.add('hidden');
+                
+                if (!number) {
+                    showError('Please enter a tracking number');
+                    return;
+                }
+                
+                const submitBtn = trackingForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.querySelector('.btn-text').textContent;
+                submitBtn.querySelector('.btn-text').textContent = 'Tracking...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    submitBtn.querySelector('.btn-text').textContent = originalText;
+                    submitBtn.disabled = false;
+                    
+                    if (samplePackages[number]) {
+                        showTrackingResults(samplePackages[number]);
+                    } else {
+                        showError('Package not found. Please check your tracking number and try again.');
+                    }
+                }, 1000);
+            });
+        }
+
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('hidden');
+        }
+
+        function showTrackingResults(packageData) {
+            const trackingResults = document.getElementById('trackingResults');
+            
+            trackingResults.innerHTML = `
+                <div class="result-header">
+                    <div class="result-info">
+                        <h4 style="font-size: 1.25rem; font-weight: 700; color: var(--pch-navy); margin-bottom: 0.5rem;">Tracking: ${packageData.trackingNumber}</h4>
+                        <p style="color: var(--pch-yellow); font-weight: 600;">Current Status: ${packageData.status}</p>
+                    </div>
+                    <div class="result-delivery">
+                        <p style="font-size: 0.875rem; opacity: 0.7; margin-bottom: 0.25rem;">Estimated Delivery</p>
+                        <p style="font-weight: 600; color: var(--pch-navy);">${packageData.estimatedDelivery}</p>
+                    </div>
+                </div>
+                
+                <div class="result-grid">
+                    <div class="result-field">
+                        <p style="font-size: 0.875rem; color: var(--pch-dark); opacity: 0.7;">Recipient</p>
+                        <p style="font-weight: 600; color: var(--pch-navy);">${packageData.recipient}</p>
+                    </div>
+                    <div class="result-field">
+                        <p style="font-size: 0.875rem; color: var(--pch-dark); opacity: 0.7;">Current Location</p>
+                        <p style="font-weight: 600; color: var(--pch-navy);">${packageData.currentLocation}</p>
+                    </div>
+                    <div class="result-field">
+                        <p style="font-size: 0.875rem; color: var(--pch-dark); opacity: 0.7;">Origin</p>
+                        <p style="font-weight: 600; color: var(--pch-navy);">${packageData.origin}</p>
+                    </div>
+                    <div class="result-field">
+                        <p style="font-size: 0.875rem; color: var(--pch-dark); opacity: 0.7;">Destination</p>
+                        <p style="font-weight: 600; color: var(--pch-navy);">${packageData.destination}</p>
+                    </div>
+                </div>
+                
+                <div class="tracking-history">
+                    <h5 style="font-weight: 600; color: var(--pch-navy); margin-bottom: 1rem;">Tracking History</h5>
+                    ${packageData.updates.map(update => `
+                        <div class="history-item">
+                            <div class="history-dot"></div>
+                            <div class="history-content">
+                                <div style="display: flex; gap: 1rem; margin-bottom: 0.25rem;">
+                                    <span style="font-weight: 500; color: var(--pch-navy); font-size: 0.875rem;">${update.date}</span>
+                                    <span style="color: var(--pch-dark); opacity: 0.7; font-size: 0.875rem;">${update.time}</span>
+                                </div>
+                                <p style="color: var(--pch-dark); opacity: 0.7; font-size: 0.875rem;">${update.location}</p>
+                                <p style="font-weight: 500; color: var(--pch-dark); font-size: 0.875rem;">${update.status}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            trackingResults.classList.remove('hidden');
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initNavigation();
+            initTracking();
+            
+            console.log('PCH Tracking Platform loaded successfully!');
+            console.log('Try these sample tracking numbers:');
+            console.log('- PCH123456789 (Out for Delivery)');
+            console.log('- PCH987654321 (In Transit)');
+            console.log('- PCH555666777 (Delivered)');
+        });
+    </script>
+</body>
+</html>
